@@ -1,9 +1,10 @@
 import express, { json } from 'express';
-import prisma from './database/prismaDb';
-import redisClient from './database/redisDb';
+import { handleApplicationErrors } from './middlewares/error-handling-middleware';
+import userRouter from './routers/userRouter';
 
 const server = express();
 server.use(json());
+server.use(userRouter);
 
 const port = process.env.PORT || 5000;
 
