@@ -1,4 +1,6 @@
+import redisClient from "../database/redisDb";
 import prisma from "../database/prismaDb"
+import * as jwt from "jsonwebtoken";
 
 const createUser = (username: string, password: string) => {
     return prisma.users.create({
@@ -17,7 +19,25 @@ const findUserByUsername = (username: string) => {
     });
 };
 
+const setToken = (userId: number) => {
+
+    const token = jwt.sign({
+        data: userId
+    }, process.env.JWT_SECRET);
+
+    redisClient.set(token, 1);
+
+    return token;
+}
+
+const getToken = (key: string) => {
+    const token = redisClient.get(key);
+    return token;
+}
+
 export const userRepositorie = {
     createUser,
-    findUserByUsername
+    findUserByUsername,
+    setToken
 };
+
