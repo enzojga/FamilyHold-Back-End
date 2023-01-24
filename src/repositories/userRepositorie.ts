@@ -20,10 +20,7 @@ const findUserByUsername = (username: string) => {
 };
 
 const setToken = (userId: number) => {
-
-    const token = jwt.sign({
-        data: userId
-    }, process.env.JWT_SECRET);
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET);
 
     redisClient.set(token, 1);
 

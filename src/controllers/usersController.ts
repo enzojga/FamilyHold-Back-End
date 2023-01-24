@@ -14,7 +14,7 @@ export const signUp = async (req: Request, res: Response) => {
     }
 }
 
-export const signIn =async (req: Request, res: Response) => {
+export const signIn = async (req: Request, res: Response) => {
     const {username, password} = req.body;
     try {
         const token = await userService.autenticateUser(username, password);
