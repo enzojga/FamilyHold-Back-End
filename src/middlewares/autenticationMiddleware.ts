@@ -17,7 +17,6 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
     if (!session) return res.sendStatus(httpStatus.FORBIDDEN);
 
     req.userId = userId;
-    console.log(userId, token, process.env.JWT_SECRET);
     return next();
   } catch (err) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err);

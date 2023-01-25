@@ -1,9 +1,13 @@
 import { boardRepositorie } from "../repositories/boardRepositorie";
 
 const create = async (userId: number, name: string) => {
-    console.log(userId, name);
     const board = await boardRepositorie.create(userId, name);
+    await boardRepositorie.joinBoard(userId, board.id);
     return board;
+}
+
+const getById = async () => {
+    
 }
 
 export const boardService = {

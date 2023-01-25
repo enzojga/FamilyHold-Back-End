@@ -1,5 +1,4 @@
 import express, { json } from 'express';
-import { handleApplicationErrors } from './middlewares/error-handling-middleware';
 import boardRouter from './routers/boardRouter';
 import userRouter from './routers/userRouter';
 
