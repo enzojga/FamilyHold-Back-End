@@ -35,9 +35,22 @@ const getBoardById = (board_id: number) => {
     })
 }
 
+const getBoardsByUserId = (user_id: number) => {
+    return prisma.userBoard.findMany({
+        where: {
+            user_id,
+        },
+        select: {
+            Boards: true
+        }
+    })
+};
+
+
 export const boardRepositorie = {
     create,
     joinBoard,
     getUserBoard,
-    getBoardById
+    getBoardById,
+    getBoardsByUserId
 }
