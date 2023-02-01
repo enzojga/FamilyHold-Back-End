@@ -4,12 +4,14 @@ import httpStatus from "http-status";
 import { boardService } from "../services/boardService";
 
 export const createBoard = async (req: AuthenticatedRequest, res: Response) => {
-    const { name } = req.body;
+    const { name, icon, invite } = req.body;
     try {
-        const board = await boardService.create(req.userId, name);
+        const board = await boardService.create(req.userId, name, icon, invite);
         return res.status(httpStatus.CREATED).send(board);
     } catch (err) {
-        console.log(err);
+        if(err.name === "ConflictError") {
+            return res.sendStatus(httpStatus.CONFLICT);
+        }
         return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
 }

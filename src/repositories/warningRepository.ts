@@ -10,6 +10,27 @@ const create = (creator: number, board_id: number, text: string) => {
     });
 };
 
+const getManyByBoardId = (board_id: number) => {
+    return prisma.warnings.findMany({
+        where: {
+            board_id
+        },
+        include: {
+            Boards: {
+                select: {
+                    UsersInfo: true,
+                }
+            },
+            Users: {
+                select: {
+                    username: true,
+                }
+            },
+        },    
+    });
+}
+
 export const warningRepositorie = {
     create,
+    getManyByBoardId,
 }

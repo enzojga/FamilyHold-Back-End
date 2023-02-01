@@ -1,10 +1,12 @@
 import prisma from "../database/prismaDb"
 
-const create = (userId: number, name: string) => {
+const create = (userId: number, name: string, icon: number, invite: string) => {
     return prisma.boards.create({
         data: {
             owner: userId,
-            name
+            name,
+            icon,
+            invite
         },
     });
 };
@@ -46,11 +48,21 @@ const getBoardsByUserId = (user_id: number) => {
     })
 };
 
+const getBoardByInvite = (invite: string) => {
+    return prisma.boards.findFirst({
+        where: {
+            invite,
+        }
+    })
+};
+
+
 
 export const boardRepositorie = {
     create,
     joinBoard,
     getUserBoard,
     getBoardById,
-    getBoardsByUserId
+    getBoardsByUserId,
+    getBoardByInvite
 }

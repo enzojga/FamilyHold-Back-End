@@ -7,7 +7,7 @@ import warningRouter from "./warningRouter";
 
 const boardRouter = Router();
 
-boardRouter.post("/", authenticateToken, validateBody(boardSchema), createBoard);
+boardRouter.post("/", validateBody(boardSchema), authenticateToken, createBoard);
 boardRouter.get("/", authenticateToken, getBoards);
 boardRouter.use("/warning", authenticateToken, warningRouter);
 
