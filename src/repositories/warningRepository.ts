@@ -26,7 +26,10 @@ const getManyByBoardId = (board_id: number) => {
                     username: true,
                 }
             },
-        },    
+        },
+        orderBy: {
+            id: 'desc',
+        }   
     });
 }
 

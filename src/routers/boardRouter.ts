@@ -4,11 +4,14 @@ import { validateBody } from "../middlewares/validation-middleware";
 import { authenticateToken } from "../middlewares/autenticationMiddleware";
 import { boardSchema } from "../schemas/boardSchema";
 import warningRouter from "./warningRouter";
+import messagesRouter from "./messagesRouter";
 
 const boardRouter = Router();
 
 boardRouter.post("/", validateBody(boardSchema), authenticateToken, createBoard);
 boardRouter.get("/", authenticateToken, getBoards);
+
 boardRouter.use("/warning", authenticateToken, warningRouter);
+boardRouter.use("/message", authenticateToken, messagesRouter);
 
 export default boardRouter;

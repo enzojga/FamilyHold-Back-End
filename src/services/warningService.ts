@@ -1,6 +1,7 @@
 import { notFoundError, unauthorizedError } from "../errors/errors";
 import { boardRepositorie } from "../repositories/boardRepositorie";
 import { warningRepositorie } from "../repositories/warningRepository";
+import { verifyUserBoard } from "./helpers";
 
 const create = async (user_id: number, board_id: number, text: string) => {
     const verifyBoard = await boardRepositorie.getBoardById(board_id);
@@ -9,9 +10,7 @@ const create = async (user_id: number, board_id: number, text: string) => {
         throw notFoundError();
     }
 
-    const verifyUser = await boardRepositorie.getUserBoard(user_id, board_id);
-    
-    if(!verifyUser) {
+    if(await !verifyUserBoard(user_id, board_id)) {
         throw unauthorizedError();
     }
 
@@ -23,12 +22,11 @@ const create = async (user_id: number, board_id: number, text: string) => {
     return warning;
 }
 
-const getWarnings = async (boardId: number, user_id: number) => {
-    const verifyUser = await boardRepositorie.getUserBoard(user_id, boardId);
-    if(!verifyUser) {
+const getWarnings = async (board_id: number, user_id: number) => {
+    if(await !verifyUserBoard(user_id, board_id)) {
         throw unauthorizedError();
     }
-    const warnings = await warningRepositorie.getManyByBoardId(boardId);
+    const warnings = await warningRepositorie.getManyByBoardId(board_id);
     return warnings;
 }
 
