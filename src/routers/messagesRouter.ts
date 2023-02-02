@@ -6,6 +6,6 @@ import { messageBodySchema, messageParamsSchema } from "../schemas/messageSchema
 const messagesRouter = Router();
 
 messagesRouter.post("/:boardId", validateBody(messageBodySchema), validateParams(messageParamsSchema),sendMessage);
-messagesRouter.get("/:boardId", validateBody(messageBodySchema), validateParams(messageParamsSchema), getMessages);
+messagesRouter.get("/:boardId", validateParams(messageParamsSchema), getMessages);
 
 export default messagesRouter;

@@ -23,9 +23,6 @@ const findMany = (board_id: number) => {
                 },
             }
         },
-        orderBy: {
-            id: 'desc',
-        },
     })
 }
 

@@ -10,7 +10,7 @@ const create = async (user_id: number, board_id: number, text: string) => {
         throw notFoundError();
     }
 
-    if(await !verifyUserBoard(user_id, board_id)) {
+    if(await verifyUserBoard(user_id, board_id)) {
         throw unauthorizedError();
     }
 
@@ -23,7 +23,7 @@ const create = async (user_id: number, board_id: number, text: string) => {
 }
 
 const getWarnings = async (board_id: number, user_id: number) => {
-    if(await !verifyUserBoard(user_id, board_id)) {
+    if(await verifyUserBoard(user_id, board_id)) {
         throw unauthorizedError();
     }
     const warnings = await warningRepositorie.getManyByBoardId(board_id);

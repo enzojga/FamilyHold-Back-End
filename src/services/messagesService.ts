@@ -3,7 +3,7 @@ import { messagesRepositorie } from "../repositories/messagesRepositorie";
 import { verifyUserBoard } from "./helpers"
 
 const sendMessage = async (user_id: number, board_id: number, message: string) => {
-    if(await verifyUserBoard(user_id, board_id)){
+    if(await !verifyUserBoard(user_id, board_id)){
         throw unauthorizedError();
     }
 
