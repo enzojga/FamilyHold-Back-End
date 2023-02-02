@@ -5,6 +5,7 @@ import { authenticateToken } from "../middlewares/autenticationMiddleware";
 import { boardSchema } from "../schemas/boardSchema";
 import warningRouter from "./warningRouter";
 import messagesRouter from "./messagesRouter";
+import userInfoRouter from "./userInfoRouter";
 
 const boardRouter = Router();
 
@@ -13,5 +14,6 @@ boardRouter.get("/", authenticateToken, getBoards);
 
 boardRouter.use("/warning", authenticateToken, warningRouter);
 boardRouter.use("/message", authenticateToken, messagesRouter);
+boardRouter.use("/info", authenticateToken, userInfoRouter);
 
 export default boardRouter;
