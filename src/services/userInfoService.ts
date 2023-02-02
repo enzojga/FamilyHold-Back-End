@@ -12,7 +12,16 @@ const upsert = async (board_id: number, user_id: number, picture: string, nickna
     return upsertInfo;
 }
 
+const getManyUserInfo = async (user_id: number, board_id: number) => {
+    if(await verifyUserBoard(user_id, board_id)){
+        throw unauthorizedError();
+    };
+    const infos = await userInfoRepositorie.getManyUserInfo(board_id);
+    return infos; 
+}
+
 
 export const userInfoService = {
     upsert,
+    getManyUserInfo
 }

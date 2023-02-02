@@ -30,7 +30,23 @@ const upsert = (board_id: number, user_id: number, picture: string, nickname: st
     })
 }
 
+const getManyUserInfo = (board_id: number) => {
+    return prisma.usersInfo.findMany({
+        where: {
+            board_id,
+        },
+        include: {
+            Users: {
+                select: {
+                    username: true,
+                }
+            },
+        }
+    })
+}
+
 export const userInfoRepositorie = {
     getUserInfo,
     upsert,
+    getManyUserInfo
 };
