@@ -6,14 +6,17 @@ import { boardSchema } from "../schemas/boardSchema";
 import warningRouter from "./warningRouter";
 import messagesRouter from "./messagesRouter";
 import userInfoRouter from "./userInfoRouter";
+import taskRouter from "./taskRouter";
 
 const boardRouter = Router();
 
 boardRouter.post("/", validateBody(boardSchema), authenticateToken, createBoard);
-boardRouter.get("/", authenticateToken, getBoards);
+boardRouter.use(authenticateToken);
+boardRouter.get("/", getBoards);
 
-boardRouter.use("/warning", authenticateToken, warningRouter);
-boardRouter.use("/message", authenticateToken, messagesRouter);
-boardRouter.use("/info", authenticateToken, userInfoRouter);
+boardRouter.use("/warning", warningRouter);
+boardRouter.use("/message", messagesRouter);
+boardRouter.use("/info", userInfoRouter);
+boardRouter.use("/task", taskRouter);
 
 export default boardRouter;

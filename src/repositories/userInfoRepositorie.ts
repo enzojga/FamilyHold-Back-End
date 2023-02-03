@@ -1,4 +1,3 @@
-import { number } from "joi";
 import prisma from "../database/prismaDb"
 
 const getUserInfo = (board_id: number, user_id: number) => {

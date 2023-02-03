@@ -6,6 +6,6 @@ import { userInfoBodySchema, userInfoParamsSchema } from "../schemas/userInfoSch
 const userInfoRouter = Router();
 
 userInfoRouter.post("/:boardId", validateBody(userInfoBodySchema), validateParams(userInfoParamsSchema), upsertUserInfo);
-userInfoRouter.get("/:boardId", validateBody(userInfoBodySchema), validateParams(userInfoParamsSchema), getUserInforFromBoardId);
+userInfoRouter.get("/:boardId", validateParams(userInfoParamsSchema), getUserInforFromBoardId);
 
 export default userInfoRouter;

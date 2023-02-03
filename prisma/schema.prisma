@@ -85,10 +85,10 @@ model UserBoard {
 
 model UserTask {
   id            Int   @id(map: "UserTask_pk") @default(autoincrement())
-  categories_id Int
-  board_id      Int
-  Tasks         Tasks @relation(fields: [categories_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserTask_fk0")
-  Users         Users @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserTask_fk1")
+  task_id       Int
+  user_id      Int
+  Tasks         Tasks @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserTask_fk0")
+  Users         Users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserTask_fk1")
 }
 
 model Users {
