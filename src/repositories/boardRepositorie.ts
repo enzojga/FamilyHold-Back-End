@@ -56,6 +56,15 @@ const getBoardByInvite = (invite: string) => {
     })
 };
 
+const quitBoard = (user_id: number, board_id: number) => {
+    return prisma.userBoard.deleteMany({
+        where: {
+            user_id,
+            board_id
+        }
+    })
+}
+
 
 
 export const boardRepositorie = {
@@ -64,5 +73,6 @@ export const boardRepositorie = {
     getUserBoard,
     getBoardById,
     getBoardsByUserId,
-    getBoardByInvite
+    getBoardByInvite,
+    quitBoard
 }

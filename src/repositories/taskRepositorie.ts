@@ -22,14 +22,14 @@ const findTasks = (board_id: number) => {
                 },
             },
             UserTask: {
-                select: {
+                include: {
                     Users: {
-                        include: {
+                        select: {
                             UsersInfo: true,
                         }
                     }
                 }
-            }
+            },
         }
     });
 };
@@ -51,9 +51,34 @@ const joinTask = (user_id:number, task_id: number) => {
     })
 }
 
+const getUserTask = (user_id:number, task_id: number) => {
+    return prisma.userTask.findFirst({
+        where: {
+            user_id,
+            task_id
+        }
+    })
+}
+
+const deleteTask = async (task_id: number) => {
+    await prisma.userTask.deleteMany({
+        where: {
+            task_id,
+        }
+    });
+    await prisma.tasks.delete({
+        where: {
+            id: task_id,
+        }
+    });
+    return;
+}
+
 export const taskRepositorie = {
     createTask,
     findTasks,
     findTask,
-    joinTask
+    joinTask,
+    getUserTask,
+    deleteTask
 }

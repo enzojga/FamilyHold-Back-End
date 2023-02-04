@@ -30,7 +30,22 @@ export const joinTask = async (req: AuthenticatedRequest, res: Response) => {
         const tasks = await taskService.joinTask(req.userId, taskId);
         return res.status(httpStatus.OK).send(tasks);
     } catch (err) {
-        console.log(err);
+        if(err.name === "ConflictError") {
+            return res.sendStatus(httpStatus.CONFLICT);
+        }
+        if(err.name === "NotFoundError") {
+            return res.sendStatus(httpStatus.NOT_FOUND);
+        }
+        return res.sendStatus(httpStatus.UNAUTHORIZED);
+    }
+}
+
+export const deleteTask = async (req: AuthenticatedRequest, res: Response) => {
+    const taskId  = Number(req.params.taskId);
+    try {
+        await taskService.deleteTask(req.userId, taskId)
+        return res.sendStatus(httpStatus.NO_CONTENT);
+    } catch (err) {
         if(err.name === "NotFoundError") {
             return res.sendStatus(httpStatus.NOT_FOUND);
         }

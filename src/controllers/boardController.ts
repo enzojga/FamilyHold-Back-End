@@ -21,7 +21,19 @@ export const getBoards = async (req: AuthenticatedRequest, res: Response) => {
         const boards: any = await boardService.getBoardsByUserId(req.userId);
         return res.status(httpStatus.OK).send(boards);
     } catch (err) {
-        console.log(err);
+        return res.sendStatus(httpStatus.UNAUTHORIZED);
+    }
+}
+
+export const quitBoard = async (req: AuthenticatedRequest, res: Response) => {
+    const boardId  = Number(req.params.boardId);
+    try {
+        await boardService.quiBoard(req.userId, boardId);
+        return res.sendStatus(httpStatus.NO_CONTENT);
+    } catch (err) {
+        if(err.name === "NotFoundError") {
+            return res.sendStatus(httpStatus.NOT_FOUND);
+        }
         return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
 }
