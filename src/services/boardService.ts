@@ -1,3 +1,4 @@
+import { number, string } from "joi";
 import { conflictError, notFoundError, unauthorizedError } from "../errors/errors";
 import { boardRepositorie } from "../repositories/boardRepositorie";
 
@@ -31,8 +32,26 @@ const quiBoard = async (user_id: number, board_id: number) => {
     return;
 }
 
+const joinBoard = async (user_id: number, invite: string) => {
+    const board = await boardRepositorie.getBoardByInvite(invite);
+
+    if(!board) {
+        throw notFoundError;
+    }
+
+    const verifyuserBoard =  await boardRepositorie.getUserBoard(user_id, board.id);
+
+    if(verifyuserBoard) {
+        throw conflictError('Usuário já esta no quadro');
+    }
+
+    await boardRepositorie.joinBoard(user_id, board.id);
+    return;
+}
+
 export const boardService = {
     create,
     getBoardsByUserId,
-    quiBoard
+    quiBoard,
+    joinBoard
 }

@@ -9,3 +9,7 @@ export const boardSchema = Joi.object({
 export const boardParamsSchema = Joi.object({
     boardId: Joi.number().required(),
 });
+
+export const boardInviteBody = Joi.object({
+    invite: Joi.string().required(),
+})

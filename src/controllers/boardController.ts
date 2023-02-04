@@ -37,3 +37,16 @@ export const quitBoard = async (req: AuthenticatedRequest, res: Response) => {
         return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
 }
+
+export const joinBoard = async (req: AuthenticatedRequest, res: Response) => {
+    const { invite } = req.body;
+    try {
+        await boardService.joinBoard(req.userId, invite)
+        return res.sendStatus(httpStatus.OK);
+    } catch (err) {
+        if(err.name === "ConflictError") {
+            return res.sendStatus(httpStatus.CONFLICT);
+        }
+        res.sendStatus(httpStatus.NOT_FOUND);
+    }
+}
