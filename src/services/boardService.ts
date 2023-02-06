@@ -45,8 +45,8 @@ const joinBoard = async (user_id: number, invite: string) => {
         throw conflictError('Usuário já esta no quadro');
     }
 
-    await boardRepositorie.joinBoard(user_id, board.id);
-    return;
+    const userBoard = await boardRepositorie.joinBoard(user_id, board.id);
+    return userBoard;
 }
 
 export const boardService = {

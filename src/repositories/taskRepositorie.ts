@@ -25,12 +25,19 @@ const findTasks = (board_id: number) => {
                 include: {
                     Users: {
                         select: {
-                            UsersInfo: true,
+                            UsersInfo: {
+                                where: {
+                                    board_id
+                                }
+                            },
                         }
                     }
                 }
             },
-        }
+        },
+        orderBy: {
+            id: 'desc',
+        },
     });
 };
 
